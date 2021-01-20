@@ -1,0 +1,10 @@
+Formato para ingresar la gramática:
+Cada renglon contiene unicamente una sola producción.
+Las producciones son de tipo A->alfa, donde alfa es una secuencia de terminales y no terminales
+IMPORTANTE: No se deben dejar espacios en la producción ya que de ser así se producirán errores.
+El símbolo inicial siempre es la primer producción
+Ejemplo:
+S->A
+A->bB
+B->aB
+B->bA

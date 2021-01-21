@@ -1,20 +1,29 @@
-lex.yy.c: mipl.l
-	    flex mipl.l
+a.out: lex.yy.o mips.tab.o main.o
+	gcc main.o lex.yy.o mips.tab.o -ll
 
-lex.yy.o: lex.yy.c
-	    gcc -c lex.yy.c
+main.o: main.c mips.tab.h
+	gcc -c main.c
 
-main.o: main.c
-	    gcc -c main.c
+lex.yy.o: lex.yy.c mips.tab.h
+	gcc -c lex.yy.c
 
-a.out: main.o lex.yy.o
-	    gcc main.o lex.yy.o -lfl
+mips.tab.o: mips.tab.c
+	gcc -c mips.tab.c
+
+mips.tab.h: mips.y
+	bison -d mips.y
+	
+lex.yy.c: mips.l
+	flex mips.l
+
+mips.tab.c: mips.y
+	bison -d mips.y
 
 clean:
-	    rm -f main.o lex.yy.o a.out lex.yy.c
+	rm *.o lex.yy.c mips.tab.c mips.tab.h
 
 run: a.out
-	    ./a.out
+	./a.out
 
-b.log: a.out a.in
-	    ./a.out
+test: test.txt
+	cat test.txt | ./a.out
